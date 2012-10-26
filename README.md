@@ -1,4 +1,6 @@
 I'm trying to mimic jekyll
 
-cat blogpost.md | ./testmd.pl > blogpost.html
-./serve.pl
+    ./testmd.pl < blogpost.md > blogpost.html
+    ./serve.pl
+
+

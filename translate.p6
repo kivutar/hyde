@@ -1,4 +1,4 @@
-#!/usr/bin/perl use v6;
+#!/usr/bin/perl
 
 # TODO: one line remaining from pygment output: remoooooove YA! 
 # TODO: code cleaning
@@ -7,6 +7,7 @@
 # TODO: tons of things (Kivutar said :) )
 # TODO: hack again on perl6: so much fun with kivutar ;)
 
+use v6;
 use Template6;
 
 my $template = Template6.new;

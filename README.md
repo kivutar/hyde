@@ -1,6 +1,6 @@
 I'm trying to mimic jekyll
 
-    ./testmd.pl < blogpost.md > blogpost.html
+    ./translate.pl < blogpost.md > blogpost.html
     ./serve.pl
 
 

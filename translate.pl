@@ -2,10 +2,10 @@
 use 5.10.0;
 use IO::All;
 
-my $title = 'Kivutarのブログ';
-my $slogan = 'A blog about minimalism.';
-my $author = 'Jean-André Santoni';
-my $canonical = 'http://kivutar.github.com/';
+my $blog_title = 'Kivutarのブログ';
+my $blog_slogan = 'A blog about minimalism.';
+my $blog_author = 'Jean-André Santoni';
+my $blog_canonical = 'http://kivutar.github.com/';
 
 sub template {
     '
@@ -15,19 +15,19 @@ sub template {
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>' . $title . '</title>
-    <meta name="author" content="' . $author . '">
+    <title>' . $blog_title . '</title>
+    <meta name="author" content="' . $blog_author . '">
     <meta name="description" content="Polka is a small web-app I wrote using Dancer as an exercise in minimalism. It is inspired by werc. Polka recursively reads a directory filled with &hellip;">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="' . $canonical . '">
+    <link rel="canonical" href="' . $blog_canonical . '">
     <link href="/favicon.png" rel="icon">
     <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
     <script src="/javascripts/modernizr-2.0.js"></script>
     <script src="/javascripts/ender.js"></script>
     <script src="/javascripts/octopress.js" type="text/javascript"></script>
-    <link href="/atom.xml" rel="alternate" title="' . $title . '" type="application/atom+xml">
+    <link href="/atom.xml" rel="alternate" title="' . $blog_title . '" type="application/atom+xml">
     <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
     <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -36,8 +36,8 @@ sub template {
 <body>
     <header role="banner">
         <hgroup>
-            <h1><a href="/">' . $title . '</a></h1>
-            <h2>' . $slogan . '</h2>
+            <h1><a href="/">' . $blog_title . '</a></h1>
+            <h2>' . $blog_slogan . '</h2>
         </hgroup>
     </header>
 
@@ -165,7 +165,12 @@ sub codeblocks {
             , $+{lang}
             )
         )
-    }xmsegr;
+    }xmsegr
 }
 
-say template markdown codeblocks scalar io('-')->slurp
+# parse header
+sub header {
+    shift =~ s[^---(?<header>.*?)---\n]{}xmsegr
+}
+
+say template markdown codeblocks header scalar io('-')->slurp

@@ -1,0 +1,9 @@
+
+# use XML::Writer;
+# say XML::Writer.serialize(
+#     :html[ :lang<fr>
+#         , 'haha'
+#         , :span[ :div<hahaha>, 'tutu' ]
+#         , 'tataaaa' ]
+# )
+

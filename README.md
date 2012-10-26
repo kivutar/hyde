@@ -1,4 +1,4 @@
-hyde
-====
+I'm trying to mimic jekyll
 
-A jekyll clone
+cat blogpost.md | ./testmd.pl > blogpost.html
+./serve.pl

@@ -9,16 +9,21 @@
 use v6;
 use Template6;
 
+my %config = ( title => 'Kivutarのブログ'
+    , slogan => 'A blog about minimalism.'
+    , author => 'Jean-André Santoni'
+    , canonical => 'http://kivutar.github.com/'
+    , simple_search => 'http://google.com/search'
+    , description => ''
+    );
+
 my $template = Template6.new;
 $template.add-path: 'templates'; 
 
 sub template ( $content ) {
     $template.process( 'layout'
     , :content($content)
-    , :blog_title('Kivutarのブログ')
-    , :blog_slogan('A blog about minimalism.')
-    , :blog_author('Jean-André Santoni')
-    , :blog_canonical('http://kivutar.github.com/') ) or die $template.error;
+    , :config(%config) ) or die $template.error;
 }
 
 sub markdown ($content) {
@@ -45,17 +50,12 @@ sub tableize ($str is copy , $lang) {
     my $table = '<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers">';
     my $code = '';
     my $i;
-    for (split /\n/, $str) {
+    for split /\n/, $str {
         $i++;
         $table ~= "<span class='line-number'>" ~ $i ~ "</span>\n";
         $code  ~= "<span class='line'>" ~ $_ ~ "</span>\n";
     }
     $table ~ "</pre></td><td class='code'><pre><code class='" ~ $lang ~ "'>" ~ $code ~ "</code></pre></td></tr></table></div>"
-}
-
-sub misenformize ($match) {
-    my ($code, $lang, $title ) = $match< code lang title >;
-    figurize( $title, tableize( pygmentize($code, $lang ), $lang ));
 }
 
 sub codeblocks ( $content is copy ) {
@@ -68,7 +68,7 @@ sub codeblocks ( $content is copy ) {
         '%}'
         $<code>=(.*?)
         '{%' \h+ 'endcodeblock' \h+ '%}'
-    ] = misenformize $/;
+    ] = figurize( $/<title>, tableize( pygmentize($/<code>, $/<lang> ), $/<lang> ));
     $content;
 }
 
@@ -84,4 +84,4 @@ sub header( $content is copy ) {
     $content;
 }
 
-say template markdown codeblocks header $*IN.slurp;
+say template markdown codeblocks header $*IN.slurp;# 

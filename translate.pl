@@ -1,6 +1,5 @@
 #!/usr/bin/perl6
 
-# TODO: one line remaining from pygment output: remoooooove YA! 
 # TODO: code cleaning
 # TODO: tree building
 # TODO: bailador as renderer
@@ -39,20 +38,19 @@ sub figurize ($title, $code) {
 }
 
 sub tableize ($str is copy , $lang) {
-    $str ~~ s/'<pre>' \s* \n*//;
-    $str ~~ s/'</pre>' \s* \n* //;
-    $str ~~ s/'<div class="highlight">' \s* \n* //;
-    $str ~~ s/'</div>' \s* \n* //;
-    $str ~~ s/\n\n/\n/;
+    $str ~~ s/ \n? '<pre>' \n? //;
+    $str ~~ s/ \n? '</pre>' \n? //;
+    $str ~~ s/ \n? '<div class="highlight">' \n? //;
+    $str ~~ s/ \n? '</div>' \n? //;
     my $table = '<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers">';
     my $code = '';
     my $i;
     for (split /\n/, $str) {
         $i++;
-        $table ~= "<span class='line-number'>"~$i~"</span>\n";
-        $code ~= "<span class='line'>"~$_~"</span>\n";
+        $table ~= "<span class='line-number'>" ~ $i ~ "</span>\n";
+        $code  ~= "<span class='line'>" ~ $_ ~ "</span>\n";
     }
-    $table ~ "</pre></td><td class='code'><pre><code class='"~$lang~"'>"~$code~"</code></pre></td></tr></table></div>"
+    $table ~ "</pre></td><td class='code'><pre><code class='" ~ $lang ~ "'>" ~ $code ~ "</code></pre></td></tr></table></div>"
 }
 
 sub misenformize ($match) {

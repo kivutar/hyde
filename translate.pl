@@ -1,11 +1,5 @@
 #!/usr/bin/perl6
 
-# TODO: code cleaning
-# TODO: tree building
-# TODO: bailador as renderer
-# TODO: tons of things (Kivutar said :) )
-# TODO: hack again on perl6: so much fun with kivutar ;)
-
 use v6;
 use Template6;
 

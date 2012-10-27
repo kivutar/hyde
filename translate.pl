@@ -9,6 +9,7 @@ my %config = ( title => 'Kivutarのブログ'
     , canonical => 'http://kivutar.github.com/'
     , simple_search => 'http://google.com/search'
     , description => ''
+    , markdown_processor => 'pandoc' # or 'markdown'
     );
 
 my $template = Template6.new;
@@ -23,7 +24,7 @@ sub template ( $content ) {
 sub markdown ($content) {
     my $temp = '/tmp/markdownize-me.md';
     spurt $temp, $content, :createonly(False);
-    open("pandoc $temp", :p ).slurp
+    open("%config<markdown_processor> $temp", :p ).slurp
 }
 
 sub pygmentize ( $code, $lang ) {
